@@ -1,8 +1,7 @@
 from CoinRepository import CoinRepository
 from CoinApi import CoinApi
 from time import sleep
-from datetime import datetime, timedelta
-import json
+from datetime import datetime
 
 coinRepository = CoinRepository()
 coinApi = CoinApi()

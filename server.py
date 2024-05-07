@@ -1,6 +1,5 @@
-from flask import Flask, jsonify
+from flask import Flask
 from flask_cors import CORS
-import json
 from CoinRepository import CoinRepository
 from CoinApi import CoinApi
 
@@ -10,17 +9,12 @@ CORS(app)
 coinRepository = CoinRepository()
 coinApi = CoinApi()
 
+
 @app.get('/')
 def get_coins():
     db_coins = coinRepository.get()
-    dict_array = []
-    for coin in db_coins:
-        dict_array.append(coin.to_dict())
-    response = {
-        "items": dict_array,
-        "total": len(dict_array)
-    }
-    return response
+    dict_array = [coin.to_dict() for coin in db_coins]
+    return {"items": dict_array, "total": len(dict_array)}
 
 
 if __name__ == '__main__':
