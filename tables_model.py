@@ -6,13 +6,7 @@ coins_table = Table(
     Column('id', Integer, primary_key=True),
     Column('coin_id', String(25)),
     Column('current_price', Float),
-    Column('created_at', DateTime)
+    Column('high_24h', Float),
+    Column('low_24h', Float),
+    Column('created_at', DateTime),
 )
-# coins_table = Table(
-#     'coins',
-#     metadata,
-#     Column('id', Integer, primary_key=True),
-#     Column('name', String(50)),
-#     Column('symbol', String(50)),
-# )
-

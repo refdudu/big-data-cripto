@@ -8,11 +8,14 @@ class CoinRepository:
 
     def create_many(self, coins):
         for coin in coins:
-            print(coin)
+            # query_coins = coins_table.insert().values(coin)
+
             query_coins = coins_table.insert().values(
                 coin_id=coin['id'],
                 current_price=coin['current_price'],
                 created_at=coin['last_updated'],
+                high_24h=coin['high_24h'],
+                low_24h=coin['low_24h']
             )
             conn.execute(query_coins)
         conn.commit()
@@ -25,10 +28,9 @@ class CoinRepository:
 
         coins = []
         for row in results:
-            coin = Coin(_id=row[0], coin_id=row[1],
-                        current_price=row[2], created_at=row[3])
+            coin = Coin.RowToCoin(row)
             coins.append(coin)
-        return coins
+        return coins    
 
     def get_last_update_coin(self, coin_id):
         query = (coins_table.select()
@@ -38,6 +40,4 @@ class CoinRepository:
         row = conn.execute(query).fetchone()
         conn.commit()
         if row:
-            return Coin(
-                _id=row[0], coin_id=row[1], current_price=row[2], created_at=row[3]
-            )
+            return Coin.RowToCoin(row)              
